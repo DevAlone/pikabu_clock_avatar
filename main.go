@@ -99,7 +99,7 @@ func addFormPng(w *multipart.Writer, key string, fileName string, value []byte) 
 	return err
 }
 
-func UploadImage(ctx *gg.Context, pikagoClient *pikago.Client) error {
+func UploadImage(ctx *gg.Context, pikagoClient *pikago.MobileClient) error {
 	b := bytes.Buffer{}
 	w := multipart.NewWriter(&b)
 	err := addFormField(w, "type", []byte("user_avatar"))
@@ -166,7 +166,7 @@ func main() {
 		panic(err)
 	}
 
-	proxyProvider, err := pikago.GetProxyPyProxyProvider(Config.ProxyAPIURL, 10)
+	proxyProvider, err := pikago.GetProxyPyProxyProvider(Config.ProxyAPIURL, 60, pikago.ProxyGettingPolice1024BestResponseTime)
 	if err != nil {
 		panic(err)
 	}
